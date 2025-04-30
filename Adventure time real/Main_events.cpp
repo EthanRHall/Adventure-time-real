@@ -4,6 +4,7 @@
 #include <ctime>
 #include <string>
 #include <algorithm>
+//#include <SFML/Audio.hpp>  // Assuming you have SFML for sound
 using namespace std;
 
 void MainEvent1::start(PlayerStats& player) {
@@ -97,10 +98,101 @@ void MainEvent1::start(PlayerStats& player) {
 
     if (solved) {
         cout << "Correct! You may pass." << endl;
-        player.addMoney(50); 
+        player.changeMoney(50); 
     }
     else {
         cout << "You failed the puzzle too many times. You and Jim have died." << endl;
-        player.loseHealth(100); 
+        player.changeHealth(-100); 
+    }
+}
+
+// beginning of main event 2____________________________________________________________
+
+void MainEvent2::start(PlayerStats& player) {
+    srand(static_cast<unsigned int>(time(0)));
+
+    // SFML sound playback (beginning of encounter)
+    //sf::SoundBuffer buffer;
+    //if (!buffer.loadFromFile("encounter_start.wav")) {
+   //     cerr << "Failed to load encounter_start.wav\n";
+   // }
+   // sf::Sound sound;
+   // sound.setBuffer(buffer);
+   // sound.play();
+
+    const int enemyCount = 4;
+    const int enemyHealth = 25;
+    int enemiesRemaining = enemyCount;
+    int currentEnemyHealth = enemyHealth;
+
+    while (player.getHealth() > 0 && enemiesRemaining > 0) {
+        cout << "\nEnemy " << (enemyCount - enemiesRemaining + 1) << " - Health: " << currentEnemyHealth << endl;
+        cout << "Your Health: " << player.getHealth() << "\n";
+        cout << "Choose action (attack/block): ";
+        string action;
+        cin >> action;
+
+        transform(action.begin(), action.end(), action.begin(), ::tolower);
+
+        // Player's Turn
+        bool playerHit = (rand() % 100) < 75;
+        int playerDamage = 10 + (rand() % 6); // 10 to 15
+
+        if (action == "attack") {
+            if (playerHit) {
+                cout << "You hit the enemy for " << playerDamage << " damage!\n";
+                currentEnemyHealth -= playerDamage; // Correct subtraction of damage
+            }
+            else {
+                cout << "You missed!\n";
+            }
+        }
+        else if (action == "block") {
+            cout << "You brace for impact.\n";
+        }
+        else {
+            cout << "Invalid action. You lose your turn!\n";
+        }
+
+        // Check if enemy is defeated after player's attack
+        if (currentEnemyHealth <= 0) {
+            cout << "Enemy defeated!\n";
+            enemiesRemaining--;
+            currentEnemyHealth = enemyHealth; // Reset enemy health for the next enemy
+            continue; // Move to the next enemy
+        }
+
+        // Enemy's Turn
+        bool enemyBlocks = (rand() % 100) < 25;
+        int enemyDamage = 7 + (rand() % 4); // 7 to 10 damage
+
+        if (enemyBlocks) {
+            cout << "Enemy blocks your attack!\n";
+        }
+        else {
+            cout << "Enemy attacks!\n";
+            if (action == "block") {
+                enemyDamage /= 2; // Block reduces damage
+                cout << "You blocked part of the damage.\n";
+            }
+            cout << "You take " << enemyDamage << " damage.\n";
+            player.changeHealth(-enemyDamage); // Subtract enemy damage from player health
+        }
+    }
+
+    if (player.getHealth() <= 0) {
+        cout << "You and Jim have fallen in battle...\n";
+    }
+    else {
+        cout << "You defeated all enemies!\n";
+
+        // SFML sound playback (end of encounter)
+       // sf::SoundBuffer winBuffer;
+       // if (!winBuffer.loadFromFile("victory_sound.wav")) {
+       //     cerr << "Failed to load victory_sound.wav\n";
+       // }
+      //  sf::Sound winSound;
+      //  winSound.setBuffer(winBuffer);
+       // winSound.play();
     }
 }

@@ -26,6 +26,8 @@ int main() {
 		return 0;
 	}
 
+
+	// timers are at 0 between dialogue for testing purposes
 	cout << "You and Jim walk from your house towards the woods. You've never been before, but in your time here you've always wondered what lay within." << endl;
 	std::this_thread::sleep_for(std::chrono::seconds(0));
 	cout << "You're not really sure how you got here. In your home there's never been any parents, a concept of which you know nothing about, but the idea that there should be someone to care for you has always been at the back of your mind." << endl;
@@ -45,16 +47,10 @@ int main() {
 	MainEvent1 event1;
 	event1.start(player);
 
-	if (player.getHealth() <= 0) {
-		cout << "You have died. Restarting game..." << endl;
-		player.reset();
-		main(); 
-	}
+	//isnert the code for the minor event right here!!
 
-
-
-
-	//this is a demo now im going back to VS
+	MainEvent2 event2;
+	event2.start(player);
 
 	return 0;
 }
