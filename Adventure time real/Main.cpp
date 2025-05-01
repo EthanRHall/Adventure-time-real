@@ -3,6 +3,7 @@
 #include <thread>
 #include "Main_events.h"
 #include "Player_stats.h"
+#include "MinorEvents.h"
 using namespace std;
 
 int main() {
@@ -47,7 +48,34 @@ int main() {
 	MainEvent1 event1;
 	event1.start(player);
 
-	//isnert the code for the minor event right here!!
+	int eventCount = 2 + rand() % 2; 
+	std::cout << "You will face " << eventCount << " minor events.\n";
+
+	for (int i = 0; i < eventCount; ++i) {
+		std::cout << "\n--- Minor Encounter #" << (i + 1) << " ---\n";
+
+		int triggerRoll = rand() % 3; 
+		if (triggerRoll < 2) {
+			int eventType = rand() % 4;
+			std::unique_ptr<MinorEvent> event;
+
+			switch (eventType) {
+			case 0: event = std::make_unique<CoinEvent>(); break;
+			case 1: event = std::make_unique<EnemyEvent>(); break;
+			case 2: event = std::make_unique<PuzzleEvent>(); break;
+			case 3: event = std::make_unique<TriviaEvent>(); break;
+			}
+
+			event->trigger(player);
+		}
+		else {
+			std::cout << "You travel safely. No event occurred.\n";
+		}
+
+		std::cout << "Current Health: " << player.getHealth()
+			<< " | Current Money: " << player.getMoney() << "\n";
+	}
+
 
 	MainEvent2 event2;
 	event2.start(player);

@@ -129,6 +129,8 @@
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Main_events.cpp" />
+    <ClCompile Include="MinorEvents.cpp" />
+    <ClCompile Include="MinorEvents.h" />
     <ClCompile Include="Player_stats.cpp" />
   </ItemGroup>
   <ItemGroup>

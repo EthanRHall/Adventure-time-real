@@ -24,6 +24,12 @@
     <ClCompile Include="Player_stats.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="MinorEvents.h">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MinorEvents.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Main_events.h">

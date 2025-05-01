@@ -121,7 +121,7 @@ void MainEvent2::start(PlayerStats& player) {
    // sound.play();
 
     const int enemyCount = 4;
-    const int enemyHealth = 25;
+    const int enemyHealth = 15;
     int enemiesRemaining = enemyCount;
     int currentEnemyHealth = enemyHealth;
 
