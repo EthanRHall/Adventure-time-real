@@ -4,8 +4,15 @@
 #include <ctime>
 #include <string>
 #include <algorithm>
+#include "Shop.h"
+
 //#include <SFML/Audio.hpp>  // Assuming you have SFML for sound
 using namespace std;
+
+Shop shop;
+
+int armor = shop.getArmor();
+int damage = shop.getDamageBoost();
 
 void MainEvent1::start(PlayerStats& player) {
     srand(static_cast<unsigned int>(time(0))); // Seed random
@@ -121,7 +128,7 @@ void MainEvent2::start(PlayerStats& player) {
    // sound.play();
 
     const int enemyCount = 4;
-    const int enemyHealth = 15;
+    const int enemyHealth = 25 - armor;
     int enemiesRemaining = enemyCount;
     int currentEnemyHealth = enemyHealth;
 
@@ -136,7 +143,7 @@ void MainEvent2::start(PlayerStats& player) {
 
         // Player's Turn
         bool playerHit = (rand() % 100) < 75;
-        int playerDamage = 10 + (rand() % 6); // 10 to 15
+        int playerDamage = 10 + (rand() % 6) + damage; // 10 to 15
 
         if (action == "attack") {
             if (playerHit) {
