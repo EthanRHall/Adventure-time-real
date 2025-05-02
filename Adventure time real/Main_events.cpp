@@ -3,6 +3,8 @@
 #include <cstdlib>
 #include <ctime>
 #include <string>
+#include <chrono>
+#include <thread>
 #include <algorithm>
 #include "Shop.h"
 #include <SFML/Audio.hpp>  // Assuming you have SFML for sound
@@ -118,10 +120,11 @@ void MainEvent1::start(PlayerStats& player) {
 void MainEvent2::start(PlayerStats& player) {
     srand(static_cast<unsigned int>(time(0)));
 
-    sf::SoundBuffer buffer;
-    if (!buffer.loadFromFile("encounter_start.wav")) {
-       cerr << "Failed to load encounter_start.wav\n";
-   }
+    sf::SoundBuffer soldierbuffer;
+    soldierbuffer.loadFromFile("Main_event_2_soldiers.wav");
+    sf::Sound soldiers(soldierbuffer);
+    soldiers.play();
+    std::this_thread::sleep_for(std::chrono::seconds(4));
 
     const int enemyCount = 4;
     const int enemyHealth = 25 - armor;
@@ -179,7 +182,7 @@ void MainEvent2::start(PlayerStats& player) {
                 cout << "You blocked part of the damage.\n";
             }
             cout << "You take " << enemyDamage << " damage.\n";
-            player.changeHealth(-enemyDamage); // Subtract enemy damage from player health
+            player.changeHealth(-enemyDamage); 
         }
     }
 
@@ -189,11 +192,11 @@ void MainEvent2::start(PlayerStats& player) {
     else {
         cout << "You defeated all enemies!\n";
 
-        // SFML sound playback (end of encounter)
-       sf::SoundBuffer winBuffer;
-       if (!winBuffer.loadFromFile("victory_sound.wav")) {
-            cerr << "Failed to load victory_sound.wav\n";
-        }
+        sf::SoundBuffer buffer;
+        buffer.loadFromFile("you win.wav");
+        sf::Sound sound(buffer);
+        sound.play();
+        std::this_thread::sleep_for(std::chrono::seconds(5));
     }
 }
 
@@ -202,71 +205,71 @@ void MainEvent2::start(PlayerStats& player) {
 
 
 void MainEvent3::start(PlayerStats& player) {
-    srand(static_cast<unsigned int>(time(0))); // Seed random
-    int soundNumber = rand() % 5; // Random sound from 0 to 4
+    srand(static_cast<unsigned int>(time(0)));
+    int soundNumber = rand() % 5;
     int attempts = 0;
     const int maxAttempts = 3;
-    string playerAnswer;
+    std::string playerAnswer;
     bool correct = false;
+    std::string correctAnswer;
 
-    string correctAnswer;
-
-    sf::SoundBuffer buffer;
-    sf::Sound sound;
-
-    // Load the correct sound based on the random selection
+    // Play sound and wait
     switch (soundNumber) {
-    case 0:
-        if (!buffer.loadFromFile("sound0.wav")) {
-            cout << "Error loading sound0.wav." << endl;
-            return;
-        }
-        correctAnswer = "jet engine";  // replace with the actual answer for this sound
+    case 0: {
+        sf::SoundBuffer buffer;
+        buffer.loadFromFile("Biden.wav");
+        sf::Sound sound(buffer);
+        sound.play();
+        std::this_thread::sleep_for(std::chrono::seconds(8));
+        correctAnswer = "joe biden";
         break;
-    case 1:
-        if (!buffer.loadFromFile("sound1.wav")) {
-            cout << "Error loading sound1.wav." << endl;
-            return;
-        }
-        correctAnswer = "explosion";
+    }
+    case 1: {
+        sf::SoundBuffer buffer;
+        buffer.loadFromFile("Trump.wav");
+        sf::Sound sound(buffer);
+        sound.play();
+        std::this_thread::sleep_for(std::chrono::seconds(10));
+        correctAnswer = "donald trump";
         break;
-    case 2:
-        if (!buffer.loadFromFile("sound2.wav")) {
-            cout << "Error loading sound2.wav." << endl;
-            return;
-        }
-        correctAnswer = "laser";
+    }
+    case 2: {
+        sf::SoundBuffer buffer;
+        buffer.loadFromFile("Lois.wav");
+        sf::Sound sound(buffer);
+        sound.play();
+        std::this_thread::sleep_for(std::chrono::seconds(10));
+        correctAnswer = "lois griffin";
         break;
-    case 3:
-        if (!buffer.loadFromFile("sound3.wav")) {
-            cout << "Error loading sound3.wav." << endl;
-            return;
-        }
-        correctAnswer = "alarm";
+    }
+    case 3: {
+        sf::SoundBuffer buffer;
+        buffer.loadFromFile("Stallone.wav");
+        sf::Sound sound(buffer);
+        sound.play();
+        std::this_thread::sleep_for(std::chrono::seconds(10));
+        correctAnswer = "sylvester stallone";
         break;
-    case 4:
-        if (!buffer.loadFromFile("sound4.wav")) {
-            cout << "Error loading sound4.wav." << endl;
-            return;
-        }
-        correctAnswer = "rocket launch";
+    }
+    case 4: {
+        sf::SoundBuffer buffer;
+        buffer.loadFromFile("Jennifer Coolidge.wav");
+        sf::Sound sound(buffer);
+        sound.play();
+        std::this_thread::sleep_for(std::chrono::seconds(10));
+        correctAnswer = "jennifer coolidge";
         break;
-    default:
-        cout << "Error selecting sound." << endl;
-        return;
+    }
     }
 
-    sound.setBuffer(buffer);  // Associate the buffer with the sound
-    sound.play();             // Play the sound
-
-    // Ask for guesses
+    // Guessing loop
     while (attempts < maxAttempts && !correct) {
-        cout << "What sound did you hear? ";
-        if (attempts == 0) cin.ignore();
-        getline(cin, playerAnswer);
+        std::cout << "Whose voice was I impersonating?? ";
+        if (attempts == 0) std::cin.ignore();
+        std::getline(std::cin, playerAnswer);
 
-        transform(playerAnswer.begin(), playerAnswer.end(), playerAnswer.begin(), ::tolower);
-        transform(correctAnswer.begin(), correctAnswer.end(), correctAnswer.begin(), ::tolower);
+        std::transform(playerAnswer.begin(), playerAnswer.end(), playerAnswer.begin(), ::tolower);
+        std::transform(correctAnswer.begin(), correctAnswer.end(), correctAnswer.begin(), ::tolower);
 
         if (playerAnswer == correctAnswer) {
             correct = true;
@@ -274,17 +277,17 @@ void MainEvent3::start(PlayerStats& player) {
         else {
             attempts++;
             if (attempts < maxAttempts) {
-                cout << "Incorrect. Try again (" << (maxAttempts - attempts) << " attempts left)." << endl;
+                std::cout << "Incorrect. Try again (" << (maxAttempts - attempts) << " attempts left)." << std::endl;
             }
         }
     }
 
     if (correct) {
-        cout << "Correct! You may pass." << endl;
+        std::cout << "Correct! You won and we won't kill you! Sorry, but I didn't tell you so it was more exciting for the viewers!" << std::endl;
         player.changeMoney(50);
     }
     else {
-        cout << "You failed to identify the sound. You and Jim have died." << endl;
+        std::cout << "You lose! Bye buddy :) *The podium blows up and you and Jim die instantly*" << std::endl;
         player.changeHealth(-100);
     }
 }
@@ -294,114 +297,100 @@ void MainEvent4::start(PlayerStats& player) {
     srand(static_cast<unsigned int>(time(0)));
 
     int enemyHealth = 100;
-    sf::SoundBuffer buffer;
-    sf::Sound sound;
 
     while (enemyHealth > 0 && player.getHealth() > 0) {
-        cout << "\nEnemy Health: " << enemyHealth << "\n";
-        cout << "Your Health: " << player.getHealth() << "\n";
+        std::cout << "\Old man's Health: " << enemyHealth << "\n";
+        std::cout << "Your Health: " << player.getHealth() << "\n";
 
-        // Enemy chooses to attack (2/3 chance) or play a sound (1/3 chance)
-        int enemyChoice = rand() % 3;
+        int enemyChoice = rand() % 4;
 
-        if (enemyChoice < 2) {
-            // Attempt attack (2/3 chance)
-            bool enemyHits = (rand() % 2) == 0; // 50/50 chance
+        if (enemyChoice < 1.1) {
+            // Enemy attacks
+            bool enemyHits = (rand() % 2) == 0;
             if (enemyHits) {
-                int damage = 8 + rand() % 3; // 8 to 10 damage
-                cout << "Enemy attacks and hits you for " << damage << " damage!\n";
+                int damage = 8 + rand() % 3;
+                std::cout << "the old man stabbed you for " << damage << " damage!\n";
                 player.changeHealth(-damage);
             }
             else {
-                cout << "Enemy attacks but misses!\n";
+                std::cout << "The old man missed!\n";
             }
         }
         else {
-            // Play a sound (1/3 chance)
-            int soundNumber = rand() % 5;
-            string correctAnswer;
+            // old man sings
+            int soundNumber = rand() % 3;
+            std::string correctAnswer;
+
+            std::cout << "Alright Frank...guess the song and i'll let you get a free hit...\n";
+            std::this_thread::sleep_for(std::chrono::seconds(5));
+
             switch (soundNumber) {
-            case 0:
-                if (!buffer.loadFromFile("sound0.wav")) {
-                    cout << "Error loading sound0.wav.\n";
-                    return;
-                }
-                correctAnswer = "jet engine";
+            case 0: {
+                sf::SoundBuffer buffer;
+                buffer.loadFromFile("american kids.wav");
+                sf::Sound sound(buffer);
+                sound.play();
+                std::this_thread::sleep_for(std::chrono::seconds(10));
+                correctAnswer = "american kids";
                 break;
-            case 1:
-                if (!buffer.loadFromFile("sound1.wav")) {
-                    cout << "Error loading sound1.wav.\n";
-                    return;
-                }
-                correctAnswer = "explosion";
+            }
+            case 1: {
+                sf::SoundBuffer buffer;
+                buffer.loadFromFile("ms jackson.wav");
+                sf::Sound sound(buffer);
+                sound.play();
+                std::this_thread::sleep_for(std::chrono::seconds(10));
+                correctAnswer = "ms jackson";
                 break;
-            case 2:
-                if (!buffer.loadFromFile("sound2.wav")) {
-                    cout << "Error loading sound2.wav.\n";
-                    return;
-                }
-                correctAnswer = "laser";
+            }
+            case 2: {
+                sf::SoundBuffer buffer;
+                buffer.loadFromFile("renegade.wav");
+                sf::Sound sound(buffer);
+                sound.play();
+                std::this_thread::sleep_for(std::chrono::seconds(10));
+                correctAnswer = "renegade";
                 break;
-            case 3:
-                if (!buffer.loadFromFile("sound3.wav")) {
-                    cout << "Error loading sound3.wav.\n";
-                    return;
-                }
-                correctAnswer = "alarm";
-                break;
-            case 4:
-                if (!buffer.loadFromFile("sound4.wav")) {
-                    cout << "Error loading sound4.wav.\n";
-                    return;
-                }
-                correctAnswer = "rocket launch";
-                break;
-            default:
-                cout << "Error selecting sound.\n";
-                return;
+            }
             }
 
-            sound.setBuffer(buffer);
-            sound.play();
+            std::string playerAnswer;
+            std::cin.ignore();
+            std::getline(std::cin, playerAnswer);
 
-            cout << "Enemy plays a sound! Identify it to avoid damage.\n";
-            string playerAnswer;
-            cin.ignore();
-            getline(cin, playerAnswer);
-
-            transform(playerAnswer.begin(), playerAnswer.end(), playerAnswer.begin(), ::tolower);
-            transform(correctAnswer.begin(), correctAnswer.end(), correctAnswer.begin(), ::tolower);
+            std::transform(playerAnswer.begin(), playerAnswer.end(), playerAnswer.begin(), ::tolower);
+            std::transform(correctAnswer.begin(), correctAnswer.end(), correctAnswer.begin(), ::tolower);
 
             if (playerAnswer == correctAnswer) {
-                cout << "Correct! You avoided damage.\n";
+                std::cout << "Not too bad... How did you even learn that?\n";
             }
             else {
-                cout << "Wrong! The sound was: " << correctAnswer << ". You take 10 damage.\n";
+                std::cout << "Wrong! HAHA, idiot! " << correctAnswer << ". In your shock the old man hit you for 10 damage.\n";
                 player.changeHealth(-10);
             }
         }
 
-        // Player's turn to attack
-        cout << "\nYour turn! Type 'attack' to strike the enemy: ";
-        string action;
-        cin >> action;
-        transform(action.begin(), action.end(), action.begin(), ::tolower);
+        // Frank attacks
+        std::cout << "\nYour turn! Type 'attack' to strike the enemy: ";
+        std::string action;
+        std::cin >> action;
+        std::transform(action.begin(), action.end(), action.begin(), ::tolower);
 
         if (action == "attack") {
-            int playerDamage = 12 + rand() % 4; // 12 to 15 damage
-            cout << "You hit the enemy for " << playerDamage << " damage!\n";
+            int playerDamage = 12 + rand() % 4;
+            std::cout << "You hit the old man for " << playerDamage << " damage!\n";
             enemyHealth -= playerDamage;
         }
         else {
-            cout << "Invalid action. You miss your turn!\n";
+            std::cout << "cmon... I explained the rules at the start!\n";
         }
     }
 
     if (player.getHealth() <= 0) {
-        cout << "\nYou and Jim have been defeated...\n";
+        std::cout << "\nSomehow you lost to an old man...\n";
     }
     else {
-        cout << "\nYou defeated the enemy!\n";
-        player.changeMoney(75); // reward
+        std::cout << "\nYou killed the old geezer! Nice job! Hopefully you didn't get tripped up on the old songs.\n";
+        player.changeMoney(75);
     }
 }

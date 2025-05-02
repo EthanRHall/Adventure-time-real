@@ -5,8 +5,9 @@
 #include "Player_stats.h"
 #include "MinorEvents.h"
 #include "Shop.h"
-#include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 using namespace std;
+using namespace sf;
 
 int main() {
 
@@ -44,6 +45,13 @@ int main() {
 	std::this_thread::sleep_for(std::chrono::seconds(2));
 	cout << "\n** As you needlessly ponder your existence, you are approached by some sort of bird.**\n" << endl;
 	std::this_thread::sleep_for(std::chrono::seconds(2));
+
+	sf::SoundBuffer birdbuffer;
+	birdbuffer.loadFromFile("bird_noises_main_1.wav");
+	sf::Sound bird(birdbuffer);
+	bird.play();
+	std::this_thread::sleep_for(std::chrono::seconds(3));
+
 	cout << "\nBird thing: Good morning traveller and dog! I see you're trying to walk through MY territory.\n" << endl;
 	std::this_thread::sleep_for(std::chrono::seconds(2));
 	cout << "\nWhile it is true this is MINE, I am feeling generous on this beautiful morning the forest has been blessed with. I will let you pass if you can answer one simple question, matter of fact if you answer it correctly I'll keep myself from ending you... and your dog!\n" << endl;
@@ -112,7 +120,6 @@ int main() {
 
 	MainEvent2 event2;
 	event2.start(player);
-
 
 	cout << "\nYou find youself at the entrance to another woods, and as you walk in the trees quickly clear out, but not like a field as before. This time its more like a little clearing in the woods.\n" << endl;
 	std::this_thread::sleep_for(std::chrono::seconds(2));
