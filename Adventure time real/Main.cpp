@@ -9,6 +9,8 @@
 using namespace std;
 using namespace sf;
 
+//this works!
+
 int main() {
 
 	PlayerStats player;
@@ -151,7 +153,7 @@ int main() {
 	MainEvent3 event3;
 	event3.start(player);
 
-	int eventCount = 2 + rand() % 2;
+	eventCount = 2 + rand() % 2;
 	std::cout << "\nYou will face " << eventCount << " minor events.\n";
 
 	std::this_thread::sleep_for(std::chrono::seconds(2));
