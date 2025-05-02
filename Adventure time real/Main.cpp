@@ -151,6 +151,49 @@ int main() {
 	MainEvent3 event3;
 	event3.start(player);
 
+	int eventCount = 2 + rand() % 2;
+	std::cout << "\nYou will face " << eventCount << " minor events.\n";
+
+	std::this_thread::sleep_for(std::chrono::seconds(2));
+
+	for (int i = 0; i < eventCount; ++i) {
+		std::this_thread::sleep_for(std::chrono::seconds(2));
+		std::cout << "\n--- Minor Encounter #" << (i + 1) << " ---\n";
+
+		int triggerRoll = rand() % 3;
+		if (triggerRoll < 2) {
+			int eventType = rand() % 4;
+			std::unique_ptr<MinorEvent> event;
+
+			switch (eventType) {
+			case 0: event = std::make_unique<CoinEvent>(); break;
+			case 1: event = std::make_unique<EnemyEvent>(); break;
+			case 2: event = std::make_unique<PuzzleEvent>(); break;
+			case 3: event = std::make_unique<TriviaEvent>(); break;
+			}
+
+			event->trigger(player);
+		}
+		else {
+			std::cout << "You travel safely. No event occurred.\n";
+		}
+
+		std::cout << "Current Health: " << player.getHealth()
+			<< " | Current Money: " << player.getMoney() << "\n";
+	}
+
+	shop.open(player);
+
+	std::cout << "\nCurrent Stats:\n";
+	std::cout << "Health: " << player.getHealth()
+		<< " | Money: " << player.getMoney()
+		<< " | Armor: " << shop.getArmor()
+		<< " | Damage Boost: " << shop.getDamageBoost() << "\n";
+
+	std::cout << "Get ready for the next event...\n";
+	std::this_thread::sleep_for(std::chrono::seconds(5)); // 5-second pause
+	std::cout << "Event is starting!\n";
+
 	cout << "\nYou walk through the woods and come across a small house... Obviusly you're curious so you walk in.\n" << endl;
 	std::this_thread::sleep_for(std::chrono::seconds(2));
 
