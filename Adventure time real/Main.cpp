@@ -95,15 +95,96 @@ int main() {
 	std::this_thread::sleep_for(std::chrono::seconds(5)); // 5-second pause
 	std::cout << "Event is starting!\n";
 
+	cout << "\nYou find yourself in a clearing after the path comes to and end. It's quite odd really, the forest just went from being thick and healthy to being an empty field.\n" << endl;
+	std::this_thread::sleep_for(std::chrono::seconds(2));
+
+	cout << "\nAs you and jim trot you notice a straight line of 4 men in bright red coats approachig you, very very slowly. They have big black hats and refuse to break order.\n" << endl;
+	std::this_thread::sleep_for(std::chrono::seconds(2));
+
+	cout << "\nThe first one in line approaches you.\n" << endl;
+	std::this_thread::sleep_for(std::chrono::seconds(2));
+
+	cout << "\n'Oi! You really fink you and your li-ole dogg can walk fru here wi-out an issue?!'\n" << endl;
+	std::this_thread::sleep_for(std::chrono::seconds(2));
+
+	cout << "\nyou can tell these guys aren't really friendly, especilly as the first one draws his saber and poses like a dork. In response you draw your own, but you notice again the ones behind him don't act or do anything...\n" << endl;
+	std::this_thread::sleep_for(std::chrono::seconds(2));
+
 	MainEvent2 event2;
 	event2.start(player);
+
+
+	cout << "\nYou find youself at the entrance to another woods, and as you walk in the trees quickly clear out, but not like a field as before. This time its more like a little clearing in the woods.\n" << endl;
+	std::this_thread::sleep_for(std::chrono::seconds(2));
+
+	cout << "\nIn this clearing there are two large stumps, and at one stands a person like you, but his head doesn't look normal. It looks like a sidewayas funnel with a cone in the mdidle of it.\n" << endl;
+	std::this_thread::sleep_for(std::chrono::seconds(2));
+
+	cout << "\nYou approach the other stump and he yells speaks, and his voice is the loudest thing you've ever heard in your life.\n" << endl;
+	std::this_thread::sleep_for(std::chrono::seconds(2));
+
+	cout << "\n'GOOD DAY TRAVELER! COME JOIN OUR GAME!\n" << endl;
+	std::this_thread::sleep_for(std::chrono::seconds(2));
+
+	cout << "\nTHE GAME OF WHICH I SPEAK IS ONE OF SKILL AND INTELLECT; YOU MUST GUESS THE NAME OF THE PERSON WHICH I AM IMPEROSNATING.\n" << endl;
+	std::this_thread::sleep_for(std::chrono::seconds(2));
+
+	cout << "\nSHOULD YOU CHOOSE THE RIGHT PERSON YOU MAY LEAVE! IF NOT... WELL YOU'LL HAVE TO WAIT AND SEE!\n" << endl;
+	std::this_thread::sleep_for(std::chrono::seconds(2));
+
+	cout << "\n*he turns around and looks into the empty woods* ARE WE READY TO PLAY OR WHAT?!?!\n" << endl;
+	std::this_thread::sleep_for(std::chrono::seconds(2));
+
+	cout << "\nYou hear a thunderous applause coming from within the woods but you see no one other than you and this weird...man?\n" << endl;
+	std::this_thread::sleep_for(std::chrono::seconds(2));
+
+	cout << "\n*Please excuse the poor impersonations performed for this event, we just had fun with it*\n" << endl;
+	std::this_thread::sleep_for(std::chrono::seconds(2));
 
 	MainEvent3 event3;
 	event3.start(player);
 
+	cout << "\nYou walk through the woods and come across a small house... Obviusly you're curious so you walk in.\n" << endl;
+	std::this_thread::sleep_for(std::chrono::seconds(2));
+
+	cout << "\nThe door slams shut behind you and Jim after the both of you enter. The room is cozy; a fireplace in the middle with a flat screen above the mantle. However, you notice a chair in the corner that is in complete darkness, the only part of the room with no light at all.\n" << endl;
+	std::this_thread::sleep_for(std::chrono::seconds(2));
+
+	cout << "\nFrom within the darkness you hear a voice...\n" << endl;
+	std::this_thread::sleep_for(std::chrono::seconds(2));
+
+	cout << "\n'Hey Frank! you've gotten big! Same goes to you Jim! I  honestly thought I'd never see either of you again, especially since I moved out here. I was really hoping I didn't actually...'\n" << endl;
+	std::this_thread::sleep_for(std::chrono::seconds(2));
+
+	cout << "\nHe turns on a lamp and the corner is no longer dark. He just appears to be a skinny old man, guitar on his back and a dagger on his hip. You also notice a few nearly empty glasses on the table next to his chair, they've got some ice sitting at the bottom with some brown liquid left in them.\n" << endl;
+	std::this_thread::sleep_for(std::chrono::seconds(2));
+
+	cout << "\nHe gets up and stumbles over to you and Jim.\n" << endl;
+	std::this_thread::sleep_for(std::chrono::seconds(2));
+	
+	cout << "\nHe whispers in your ear 'I will never forgive you or your mother for what you did to me...' His voice gets louder 'I've been alone for YEARS, no one to talk to, laugh with, play with, sing with, NOTHING.'\n" << endl;
+	std::this_thread::sleep_for(std::chrono::seconds(2));
+
+	cout << "\nYou have no idea what he's talking about, but what you do notice is his hand creeping toward the dagger he keeps at his hip...\n" << endl;
+	std::this_thread::sleep_for(std::chrono::seconds(2));
+
+	cout << "\n*For this event you must guess the name of the song he sings, if you guess it right he does not hit you, else he does. The singing is really, really bad. You've been warned.*\n" << endl;
+	std::this_thread::sleep_for(std::chrono::seconds(2));
+
 	MainEvent4 event4;
 	event4.start(player);
 
+	cout << "\nUpon defeating him everything went white and you found yourself outside your house. \n" << endl;
+	std::this_thread::sleep_for(std::chrono::seconds(2));
+
+	cout << "\nThe same voice from before speaks to you...\n" << endl;
+	std::this_thread::sleep_for(std::chrono::seconds(2));
+
+	cout << "\n'Frank! Amazing job, that was sensational! You and Jim both killed it, literally!'\n" << endl;
+	std::this_thread::sleep_for(std::chrono::seconds(2));
+
+	cout << "\n'You might be wondering who that man was and why he hated you... Well just like Tarantino with the case in Pulp Fiction, I'll let you figure that out for yourself! I hope you had fun!'\n" << endl;
+	std::this_thread::sleep_for(std::chrono::seconds(2));
 
 	return 0;
 }
