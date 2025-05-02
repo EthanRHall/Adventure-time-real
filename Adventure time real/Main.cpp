@@ -5,6 +5,7 @@
 #include "Player_stats.h"
 #include "MinorEvents.h"
 #include "Shop.h"
+#include <SFML/Graphics.hpp>
 using namespace std;
 
 int main() {
@@ -96,6 +97,13 @@ int main() {
 
 	MainEvent2 event2;
 	event2.start(player);
+
+	MainEvent3 event3;
+	event3.start(player);
+
+	MainEvent4 event4;
+	event4.start(player);
+
 
 	return 0;
 }
