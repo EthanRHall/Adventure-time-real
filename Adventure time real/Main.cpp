@@ -9,6 +9,8 @@
 using namespace std;
 using namespace sf;
 
+//this is a test please god work
+
 int main() {
 
 	PlayerStats player;
